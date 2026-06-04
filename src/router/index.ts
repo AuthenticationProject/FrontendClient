@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import AuthView from '../components/AuthCard.vue'
 
 const router = createRouter({

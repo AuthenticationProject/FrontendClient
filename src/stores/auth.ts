@@ -2,24 +2,38 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useTokenStore = defineStore('token', {
-    
-
     state: () => (
         { 
             token: '',
             role: '',
+            username: '',
         }
     ),
     getters: {
-        getToken: (state) => state.token,
-        getRole: (state) => state.role,
+        getToken: (state) => localStorage.getItem('token') || state.token,
+        getRole: (state) => localStorage.getItem('role') || state.role,
+        getUsername: (state) => localStorage.getItem('username') || state.username,
     },
     actions: {
         setToken(token: string) {
             this.token = token
+            localStorage.setItem('token', token)
         },
         setRole(role: string) {
             this.role = role
+            localStorage.setItem('role', role)
+        },
+        setUsername(username: string) {
+            this.username = username
+            localStorage.setItem('username', username)
+         },
+        clearToken() {
+            this.token = ''
+            this.role = ''
+            this.username = ''
+            localStorage.removeItem('token');
+            localStorage.removeItem('role');
+            localStorage.removeItem('username');
         }
     },
 
