@@ -1,4 +1,21 @@
 <template>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+      <a class="navbar-brand ms-3" href="#">MyStore</a>
+      <div class="container d-flex justify-content-end">
+
+          <LogoutButton />
+
+          <button class="btn btn-outline-light btn-sm ms-2" @click="$router.push('/cart')">
+              Profilo
+          </button>
+
+          <button class="btn btn-outline-light btn-sm ms-2" @click="$router.push('/shop')">
+              Negozio
+          </button>
+      </div>
+  </nav>
+
   <div class="container my-5" style="max-width: 700px;">
     <h3 class="fw-bold mb-4">Carrello</h3>
 
@@ -53,11 +70,12 @@ import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { useTokenStore } from '@/stores/auth'
 import { useCartStore } from '@/stores/cart'
+import LogoutButton from './LogoutButton.vue'
 
 export default {
     name: 'Cart page',
     components : {
-        
+        LogoutButton
     },
     data() {
       return {

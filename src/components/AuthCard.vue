@@ -26,6 +26,8 @@
         </button>
       </form>
 
+      <Loading v-if="loading" />
+
       <div class="mt-4 pt-2 border-top">
         <div class="d-flex justify-content-between gap-1">
           <button @click="modalita = 'login'" class="btn btn-outline-secondary btn-sm flex-grow-1" :class="{ active: modalita === 'login' }">Accedi</button>
@@ -43,11 +45,15 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import Loading from './Loading.vue'
 import { useTokenStore } from '@/stores/auth'
 import { useCartStore } from '@/stores/cart'
 
 export default {
     name: 'Authentication page',
+    components : {
+        Loading
+    },
     data() {
       return {
         email:"",
@@ -56,7 +62,8 @@ export default {
         modalita:"login",
         store: useTokenStore(),
         cart: useCartStore(),
-        router: useRouter()
+        router: useRouter(),
+        loading: false
       }
     },
     mounted() {
@@ -64,7 +71,17 @@ export default {
     },
     methods: {
         async inviaDati() {
-            
+            this.loading = true
+            if(this.modalita === 'login') {
+                await this.login()
+            } else if(this.modalita === 'registrazione') {
+                await this.register()
+            } else if(this.modalita === 'reset') {
+                await this.resetPassword()
+            }
+            this.loading = false
+        },
+        async login() {
             const payload = {
                 email: this.email,
                 password: this.password,
@@ -82,8 +99,13 @@ export default {
                 const role = response.data.role
                 this.store.setToken(jwt)
                 this.store.setRole(role)
+                this.store.setUsername(this.username)
+                this.store.setEmail(this.email)
                 this.cart.username = this.email
                 console.log("Token impostato:", this.store.getToken)
+                if(response.data.hasTemporaryPassword) {
+                    alert('Attenzione: stai utilizzando una password temporanea. Ti consigliamo di cambiarla al più presto!')
+                }
                 if(role === "ADMIN") {
                     this.router.push('/dashboard')
                 } else {
@@ -91,6 +113,32 @@ export default {
                 }
             } catch (error) {
                 console.error("Login fallito:", error)
+            }
+        },
+        async register() {
+            try {
+                const response = await axios.post('http://localhost:8080/api/auth/register', {
+                    email: this.email,
+                    password: this.password,
+                    username: this.username
+                })
+                console.log("Risposta ricevuta:", response.data)
+                alert('Registrazione avvenuta con successo! Ora puoi effettuare il login.')
+                this.modalita = 'login'
+            } catch (error) {
+                console.error("Registrazione fallita:", error)
+            }
+        },
+        async resetPassword() {
+            try {
+                const response = await axios.post('http://localhost:8080/api/auth/setTemporaryPassword', {
+                    email: this.email
+                })
+                console.log("Risposta ricevuta:", response.data)
+                alert('Se l\'email è registrata, riceverai un messaggio con le istruzioni per reimpostare la password.')
+                this.modalita = 'login'
+            } catch (error) {
+                console.error("Reset password fallito:", error)
             }
         }
     },

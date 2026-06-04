@@ -4,6 +4,8 @@
         <a class="navbar-brand ms-3" href="#">MyStore</a>
         <div class="container d-flex justify-content-end">
 
+            <LogoutButton />
+
             <button class="btn btn-outline-light btn-sm ms-2" @click="$router.push('/cart')">
                 Profilo
             </button>
@@ -51,11 +53,12 @@ import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { useTokenStore } from '@/stores/auth'
 import { useCartStore } from '@/stores/cart'
+import LogoutButton from '../components/LogoutButton.vue'
 
 export default {
     name: 'Shop page',
     components : {
-        
+        LogoutButton
     },
     data() {
       return {

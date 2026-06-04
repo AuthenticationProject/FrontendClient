@@ -80,7 +80,6 @@ export default {
         async inviaFoto() {
             if (!fileSelezionato.value) return
 
-            // Crea il contenitore Multipart
             const formData = new FormData()
             formData.append('file', fileSelezionato.value)
 
@@ -98,7 +97,7 @@ export default {
         },
 
         async inviaDati() {
-            this.inviaFoto() // Prima carichiamo la foto, così abbiamo l'URL da associare al prodotto
+            this.inviaFoto()
             
             const token = this.store.getToken
             const config = {
@@ -109,7 +108,7 @@ export default {
                 name: this.titleProduct,
                 description: this.descriptionProduct,
                 price: this.priceProduct,
-                urlImage: this.imageName // Assumiamo che il nome del file sia sufficiente per identificare l'immagine nel DB
+                urlImage: this.imageName
             }
             console.log("Dati da inviare:", payload)
 

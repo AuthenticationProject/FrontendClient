@@ -23,7 +23,7 @@ export const useCartStore = defineStore('cart', {
         removeItem(idItem: number, price: number) {
             const cartFromStorage = this.getCart();
             let idx = cartFromStorage.findIndex((p: { idItem: number, price: number }) => p.idItem === idItem && p.price === price);
-            if(idx >= 0){ //check if item found
+            if(idx >= 0){
                 var removed = cartFromStorage.splice(idx, 1);     
                 console.log(removed);
                 console.log(cartFromStorage);
