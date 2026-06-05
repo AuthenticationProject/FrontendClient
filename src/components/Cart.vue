@@ -63,7 +63,7 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+<script>
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
@@ -91,7 +91,7 @@ export default {
       console.log("Carrello attuale:", this.cartElements)
     },
     methods: {
-        removeItem(id: number, price: number) {
+        removeItem(id, price) {
             console.log("Rimuovi prodotto con ID:", id)
             this.cart.removeItem(id, price)
             this.cartElements = this.cart.getCart()

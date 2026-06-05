@@ -41,20 +41,16 @@
 
 </template>
 
-<script lang="ts">
+<script>
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { useTokenStore } from '@/stores/auth'
-import LoadImage from '../components/LoadImage.vue'
 import LogoutButton from '../components/LogoutButton.vue'
-
-const fileSelezionato = ref<File | null>(null)
 
 export default {
     name: 'Dashboard page',
     components : {
-        LoadImage,
         LogoutButton
     },
     data() {
@@ -64,7 +60,8 @@ export default {
         titleProduct: "",
         descriptionProduct: "",
         priceProduct: 0,
-        imageName: ""
+        imageName: "",
+        fileSelezionato: null
       }
     },
     mounted() {
@@ -74,20 +71,20 @@ export default {
         }
     },
     methods: {
-        changeFile(event: Event) {
-            const target = event.target as HTMLInputElement
+        changeFile(event) {
+            const target = event.target
             if (target.files && target.files.length > 0) {
                 console.log("File selezionato:", target.files[0])
-                fileSelezionato.value = target.files[0]
+                this.fileSelezionato.value = target.files[0]
                 this.imageName = target.files[0].name
             }
         },
 
         async sendImage() {
-            if (!fileSelezionato.value) return
+            if (!this.fileSelezionato.value) return
 
             const formData = new FormData()
-            formData.append('file', fileSelezionato.value)
+            formData.append('file', this.fileSelezionato.value)
 
             const token = this.store.getToken()
             const config = {

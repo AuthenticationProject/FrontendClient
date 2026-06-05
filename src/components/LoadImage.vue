@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue'
 import axios from 'axios'
 
@@ -13,18 +13,18 @@ import axios from 'axios'
     </div>
 </template>
 
-<script lang="ts">
+<script>
 const fileSelezionato = ref<File | null>(null)
 export default {
     name: 'LoadImage',
     data() {
       return {
-        fileSelezionato: ref<File | null>(null)
+        fileSelezionato: null
       }
     },
     methods: {
-            gestisciCambioFile(event: Event) {
-                const target = event.target as HTMLInputElement
+            gestisciCambioFile(event) {
+                const target = event.target
                 if (target.files && target.files.length > 0) {
                     console.log("File selezionato:", target.files[0])
                     fileSelezionato.value = target.files[0]
