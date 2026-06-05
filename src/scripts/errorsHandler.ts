@@ -1,5 +1,5 @@
 export const errorsHandler = {
-   handleError: (error) => {
+   handleError: (error: any) => {
         if (error.response.status === 401) {
             return 401
         } else if (error.response.status === 403) {
