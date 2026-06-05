@@ -6,7 +6,7 @@
 
           <LogoutButton />
 
-          <button class="btn btn-outline-light btn-sm ms-2" @click="$router.push('/cart')">
+          <button class="btn btn-outline-light btn-sm ms-2" @click="$router.push('/profile')">
               Profilo
           </button>
 
@@ -58,7 +58,6 @@
       </div>
 
       <div class="d-flex justify-content-between mt-4">
-        <button class="btn btn-light btn-sm text-muted">Svuota</button>
         <button class="btn btn-dark px-4">Procedi al Pagamento</button>
       </div>
     </div>

@@ -6,7 +6,7 @@
 
             <LogoutButton />
 
-            <button class="btn btn-outline-light btn-sm ms-2" @click="$router.push('/cart')">
+            <button class="btn btn-outline-light btn-sm ms-2" @click="$router.push('/profile')">
                 Profilo
             </button>
 
@@ -17,11 +17,10 @@
         </div>
     </nav>
 
-    <div class="container mb-5">
-        <h2 class="mb-4 text-center text-dark fw-bold">Il Nostro Catalogo</h2>
+    <div class="container mb-5" style="max-width: 600px;">
+        <h2 class="mb-4 text-center text-dark fw-bold">Il nostro catalogo</h2>
         
         <div class="row">
-            <p>Prodotti</p>
             <div v-for="product of products">
                 <div class="col">
                     <div class="card shadow-sm border-0">
@@ -33,7 +32,7 @@
                             </p>
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <span class="fs-4 fw-bold text-success">€ {{ product.price }}</span>
-                                <button class="btn btn-primary btn-sm px-3" @click="aggiungiAlCarrello(product)">
+                                <button class="btn btn-primary btn-sm px-3" @click="addToCart(product)">
                                     <i class="bi bi-cart-plus"></i> Aggiungi
                                 </button>
                             </div>
@@ -73,12 +72,12 @@ export default {
     mounted() {
         this.cartCount = this.cart.getCart().length
 
-        const role = this.store.getRole
+        const role = this.store.getRole()
         console.log("Ruolo utente:", role)
         if (role !== "USER") {
             this.router.push('/')
         } else {
-            const token = this.store.getToken
+            const token = this.store.getToken()
             const config = {
                 headers: { Authorization: `Bearer ${token}` }
             };
@@ -129,17 +128,11 @@ export default {
                 reader.readAsDataURL(blob)
             })
         },
-        aggiungiAlCarrello(product) {
+        addToCart(product) {
             console.log("Aggiunto al carrello:", product)
             this.cart.addItem(product.id, product.name, product.price)
             this.cartCount = this.cart.getCart().length
         }
-    },
-    beforeUnmount() {
-        
-    },
-    watch: {
-        
     }
 }
 </script>

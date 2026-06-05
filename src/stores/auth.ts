@@ -11,12 +11,21 @@ export const useTokenStore = defineStore('token', {
         }
     ),
     getters: {
-        getToken: (state) => localStorage.getItem('token') || state.token,
-        getRole: (state) => localStorage.getItem('role') || state.role,
-        getUsername: (state) => localStorage.getItem('username') || state.username,
-        getEmail: (state) => localStorage.getItem('email') || state.email,
+        
     },
     actions: {
+        getToken() {
+            return localStorage.getItem('token')
+        },
+        getRole() {
+            return localStorage.getItem('role')
+        },
+        getUsername() {
+            return localStorage.getItem('username')
+        },
+        getEmail() {
+            return localStorage.getItem('email')
+        },
         setToken(token: string) {
             this.token = token
             localStorage.setItem('token', token)

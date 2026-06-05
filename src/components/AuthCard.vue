@@ -101,7 +101,7 @@ export default {
                 this.store.setRole(role)
                 this.store.setUsername(this.username)
                 this.store.setEmail(this.email)
-                this.cart.username = this.email
+                this.cart.setUsername(this.email)
                 console.log("Token impostato:", this.store.getToken)
                 if(response.data.hasTemporaryPassword) {
                     alert('Attenzione: stai utilizzando una password temporanea. Ti consigliamo di cambiarla al più presto!')

@@ -15,9 +15,9 @@
         <h1>Profilo utente</h1>
         <div class="card mt-4">
             <div class="card-body">
-                <h5 class="card-title">Username: {{ store.getUsername }}</h5>
-                <p class="card-text">Email: {{ store.getEmail }}</p>
-                <p class="card-text">Ruolo: {{ store.getRole }}</p>
+                <h5 class="card-title">Username: {{ store.getUsername() }}</h5>
+                <p class="card-text">Email: {{ store.getEmail() }}</p>
+                <p class="card-text">Ruolo: {{ store.getRole() }}</p>
             </div>
         </div>
     </div>
@@ -62,19 +62,23 @@ export default {
       }
     },
     mounted() {
-        
+        const role = this.store.getRole()
+        console.log("Ruolo utente:", role)
+        if (role !== "USER") {
+            this.router.push('/')
+        }
     },
     methods: {
         cambiaPassword() {
             const payload = {
                 currentPassword: this.currentPassword,
                 newPassword: this.newPassword,
-                email: this.store.getEmail
+                email: this.store.getEmail()
             }
 
             axios.post('http://localhost:8080/api/user/changePassword', payload, {
                 headers: {
-                    'Authorization': `Bearer ${this.store.getToken}`
+                    'Authorization': `Bearer ${this.store.getToken()}`
                 }
             })
             .then(response => {

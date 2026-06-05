@@ -23,7 +23,6 @@ export default {
       }
     },
     methods: {
-        // Cattura il file quando l'utente lo sceglie dal computer
             gestisciCambioFile(event: Event) {
                 const target = event.target as HTMLInputElement
                 if (target.files && target.files.length > 0) {
@@ -36,7 +35,6 @@ export default {
             async inviaFoto() {
                 if (!fileSelezionato.value) return
 
-                // Crea il contenitore Multipart
                 const formData = new FormData()
                 formData.append('file', fileSelezionato.value)
 
