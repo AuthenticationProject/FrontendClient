@@ -5,9 +5,12 @@ import { createPinia } from 'pinia'
 import { defineStore } from 'pinia'
 import {errorsHandler} from './scripts/errorsHandler.ts'
 import { useTokenStore } from '@/stores/auth'
+import axios from 'axios'
 
 import App from './App.vue'
 import router from './router'
+
+axios.defaults.withCredentials = false
 
 const app = createApp(App)
 
@@ -34,3 +37,7 @@ app.config.globalProperties.$handleError = (error) => {
         alert("Si è verificato un errore. Per favore, riprova più tardi.")
     }
 }
+
+const servicePort = import.meta.env.VITE_SERVICE_PORT || '8080';
+app.config.globalProperties.$servicePort = servicePort;
+console.log("Service Port:", servicePort)

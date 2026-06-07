@@ -63,7 +63,8 @@ export default {
         store: useTokenStore(),
         cart: useCartStore(),
         router: useRouter(),
-        loading: false
+        loading: false,
+        port: this.$servicePort
       }
     },
     mounted() {
@@ -90,7 +91,7 @@ export default {
             console.log("Dati inviati:", payload)
 
             try {
-                const response = await axios.post('http://localhost:8080/api/auth/login', {
+                const response = await axios.post(`http://localhost:${this.port}/api/auth/login`, {
                     email: this.email,
                     password: this.password
                 })
@@ -117,7 +118,7 @@ export default {
         },
         async register() {
             try {
-                const response = await axios.post('http://localhost:8080/api/auth/register', {
+                const response = await axios.post(`http://localhost:${this.port}/api/auth/register`, {
                     email: this.email,
                     password: this.password,
                     username: this.username
@@ -131,7 +132,7 @@ export default {
         },
         async resetPassword() {
             try {
-                const response = await axios.post('http://localhost:8080/api/auth/setTemporaryPassword', {
+                const response = await axios.post(`http://localhost:${this.port}/api/auth/setTemporaryPassword`, {
                     email: this.email
                 })
                 console.log("Risposta ricevuta:", response.data)

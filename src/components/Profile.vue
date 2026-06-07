@@ -58,7 +58,8 @@ export default {
         store: useTokenStore(),
         router: useRouter(),
         currentPassword: "",
-        newPassword: ""
+        newPassword: "",
+        port: this.$servicePort
       }
     },
     mounted() {
@@ -76,7 +77,7 @@ export default {
                 email: this.store.getEmail()
             }
 
-            axios.post('http://localhost:8080/api/user/changePassword', payload, {
+            axios.post(`http://localhost:${this.port}/api/user/changePassword`, payload, {
                 headers: {
                     'Authorization': `Bearer ${this.store.getToken()}`
                 }

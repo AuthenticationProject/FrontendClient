@@ -19,7 +19,8 @@ export default {
     name: 'LoadImage',
     data() {
       return {
-        fileSelezionato: null
+        fileSelezionato: null,
+        port: this.$servicePort
       }
     },
     methods: {
@@ -39,7 +40,7 @@ export default {
                 formData.append('file', fileSelezionato.value)
 
                 try {
-                    await axios.post('http://localhost:8080/api/auth/caricafoto', formData)
+                    await axios.post(`http://localhost:${this.port}/api/auth/caricafoto`, formData)
                     alert('Foto salvata nel DB!')
                 } catch (error) {
                     console.error('Errore nel caricamento', error)

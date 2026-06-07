@@ -61,7 +61,8 @@ export default {
         descriptionProduct: "",
         priceProduct: 0,
         imageName: "",
-        fileSelezionato: null
+        fileSelezionato: null,
+        port: this.$servicePort
       }
     },
     mounted() {
@@ -92,7 +93,7 @@ export default {
             };
 
             try {
-                const url = await axios.post('http://localhost:8080/api/admin/loadImage', formData, config)
+                const url = await axios.post(`http://localhost:${this.port}/api/admin/loadImage`, formData, config)
                 alert('Foto salvata nel DB!')
                 return url.data
             } catch (error) {
@@ -117,7 +118,7 @@ export default {
             console.log("Dati da inviare:", payload)
 
             try {
-                const response = await axios.post('http://localhost:8080/api/admin/addProduct', payload, config)
+                const response = await axios.post(`http://localhost:${this.port}/api/admin/addProduct`, payload, config)
                 console.log("Risposta ricevuta:", response.data)
             } catch (error) {
                 console.error("Richiesta fallita:", error)

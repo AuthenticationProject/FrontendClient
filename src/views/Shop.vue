@@ -66,7 +66,8 @@ export default {
         store: useTokenStore(),
         cart: useCartStore(),
         router: useRouter(),
-        cartCount: 0
+        cartCount: 0,
+        port: this.$servicePort
       }
     },
     mounted() {
@@ -82,7 +83,7 @@ export default {
                 headers: { Authorization: `Bearer ${token}` }
             };
 
-            axios.get('http://localhost:8080/api/user/getProducts', config)
+            axios.get(`http://localhost:${this.port}/api/user/getProducts`, config)
             .then(response => {
                 console.log("Prodotti ricevuti:", response.data)
                 
@@ -113,7 +114,7 @@ export default {
     methods: {
         async getImage(url, config) {
             console.log("Richiesta immagine:", url)
-            const response = await axios.get("http://localhost:8080/api/user/getImage/" + url, config);
+            const response = await axios.get(`http://localhost:${this.port}/api/user/getImage/${url}`, config);
             if (response.status == 200) {
                 const base64data = await this.blobToData(response.data);
                 return base64data;
