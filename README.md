@@ -40,3 +40,8 @@ npm run dev
 ```sh
 npm run build
 ```
+
+### Build and publish the image using
+```sh
+ docker buildx build  . --platform=linux/amd64,linux/arm64 -t ghcr.io/authenticationproject/frontend:latest --push
+```

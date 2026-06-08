@@ -76,16 +76,16 @@ export default {
             const target = event.target
             if (target.files && target.files.length > 0) {
                 console.log("File selezionato:", target.files[0])
-                this.fileSelezionato.value = target.files[0]
+                this.fileSelezionato = target.files[0]
                 this.imageName = target.files[0].name
             }
         },
 
         async sendImage() {
-            if (!this.fileSelezionato.value) return
+            if (!this.fileSelezionato) return
 
             const formData = new FormData()
-            formData.append('file', this.fileSelezionato.value)
+            formData.append('file', this.fileSelezionato)
 
             const token = this.store.getToken()
             const config = {
