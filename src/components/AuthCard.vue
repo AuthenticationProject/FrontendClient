@@ -114,6 +114,7 @@ export default {
                 }
             } catch (error) {
                 console.error("Login fallito:", error)
+                alert('Login fallito: email o password errati.')
             }
         },
         async register() {
@@ -128,6 +129,7 @@ export default {
                 this.modalita = 'login'
             } catch (error) {
                 console.error("Registrazione fallita:", error)
+                alert('Registrazione fallita: potrebbe essere dovuto a un email già registrata o a dati non validi.')
             }
         },
         async resetPassword() {
